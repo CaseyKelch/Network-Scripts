@@ -28,7 +28,7 @@ def conn_check(host):
 
 
 def enable_interface(int):
-    # Enables interface if conn_check function ends.
+    # Enables interface on Cisco Nexus device.
     cli("conf t ; interface " + int  + " ; no shut")
     print(int + " has been enabled.")
 
