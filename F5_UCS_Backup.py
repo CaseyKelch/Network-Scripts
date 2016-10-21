@@ -10,20 +10,6 @@ import base64
 from collections import OrderedDict
 
 
-# Credentials
-username = 'admin'
-password = base64.b64decode('xxxxx').decode('ascii')
-
-# Dictionary with IP as key with Hostname value
-f5_dict = {
-            "1.1.1.1": "F5_Host_1", "1.1.1.2": "F5_Host_2"
-           }
-
-
-# Sorts dictionary so that results are consistent.  Orders by IP address(Key).
-f5_sorted = OrderedDict(sorted(f5_dict.items()))
-
-
 """
 Generate UCS backup
 """
@@ -68,5 +54,17 @@ def cleanup_ucs(sorteddict):
         time.sleep(2)
         ssh.close()
 
+            
+# Credentials
+username = 'admin'
+password = base64.b64decode('xxxxx').decode('ascii')
+
+# Dictionary with IP as key with Hostname value
+f5_dict = {
+            "1.1.1.1": "F5_Host_1", "1.1.1.2": "F5_Host_2"
+           }
+
+# Sorts dictionary so that results are consistent.  Orders by IP address(Key).
+f5_sorted = OrderedDict(sorted(f5_dict.items()))
 
 
