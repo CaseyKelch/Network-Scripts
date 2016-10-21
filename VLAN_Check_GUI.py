@@ -1,6 +1,7 @@
 '''
 Python 3.4 Script will take csv file of mac address list
 and locate interfaces - Tkinter GUI.
+Needs lots of cleanup.  My first practical Python script.
 '''
 
 import paramiko
