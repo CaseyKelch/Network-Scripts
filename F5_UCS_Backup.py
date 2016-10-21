@@ -1,7 +1,5 @@
 #!/usr/bin/python3
 
-
-# Python Libraries
 import paramiko
 import time
 import datetime
