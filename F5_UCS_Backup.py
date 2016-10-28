@@ -9,8 +9,8 @@ from collections import OrderedDict
 
 class F5Backup:
 
-    def __init__(self, sorteddict, username, password, directory):
-        self.sorteddict = sorteddict
+    def __init__(self, dictionary, username, password, directory):
+        self.dictionary = dictionary
         self.username = username
         self.password = password
         self.directory = directory
@@ -19,10 +19,10 @@ class F5Backup:
     UCS Backup Creation
     """
 
-    def archive_ucs(self):
+    def archive(self):
         ssh = paramiko.SSHClient()
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        for ip, f5host in self.sorteddict.items():
+        for ip, f5host in self.dictionary.items():
             ssh.connect(ip, username=self.username, password=self.password)
             ssh.exec_command("tmsh save /sys ucs /var/tmp/"+f5host+"{:%m-%d-%Y}".format(datetime.datetime.now())+".ucs")
             time.sleep(30)
@@ -32,10 +32,10 @@ class F5Backup:
     SFTP UCS file from F5 to Directory
     """
 
-    def sftp_ucs(self):
+    def sftp(self):
         ssh = paramiko.SSHClient()
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        for ip, f5host in self.sorteddict.items():
+        for ip, f5host in self.dictionary.items():
             ssh.connect(ip, username=self.username, password=self.password)
             sftp = ssh.open_sftp()
             sftp.get("/var/tmp/"+f5host+"{:%m-%d-%Y}".format(datetime.datetime.now())+".ucs", self.directory +
@@ -47,10 +47,10 @@ class F5Backup:
     Cleanup UCS files from F5 /var/tmp directory.
     """
 
-    def cleanup_ucs(self):
+    def cleanup(self):
         ssh = paramiko.SSHClient()
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        for ip, f5host in self.sorteddict.items():
+        for ip, f5host in self.dictionary.items():
             ssh.connect(ip, username=self.username, password=self.password)
             ssh.exec_command("rm /var/tmp/*.ucs")
             time.sleep(2)
@@ -69,6 +69,6 @@ passw = base64.b64decode('xxxxx').decode('ascii')
 my_dir = "C:\\Desktop\\F5"
 
 backup = F5Backup(f5_sorted, user, passw, my_dir)
-backup.archive_ucs()
-backup.sftp_ucs()
-backup.cleanup_ucs()
+backup.archive()
+backup.sftp()
+backup.cleanup()
