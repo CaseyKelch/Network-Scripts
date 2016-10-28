@@ -1,5 +1,8 @@
 #!/usr/bin/python3
-
+"""
+Archive F5 UCS Backup file and copy to directory.
+Use at your own risk.
+"""
 import paramiko
 import time
 import datetime
