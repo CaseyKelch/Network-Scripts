@@ -71,4 +71,4 @@ my_dir = "C:\\Desktop\\F5"
 backup = F5Backup(f5_sorted, user, passw, my_dir)
 backup.archive_ucs()
 backup.sftp_ucs()
-backup.cleanup.ucs()
+backup.cleanup_ucs()
