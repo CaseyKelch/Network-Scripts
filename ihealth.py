@@ -24,6 +24,7 @@ def ihealth_auth(health_user, health_pass):
 
 def download_diag(diag_dir):
 
+    # Download Diagnostics PDF from ihealth API.
     qkview_data = sess.get("https://ihealth-api.f5.com/qkview-analyzer/api/qkviews.json")
     data = json.loads(qkview_data.text)
     for val in data['id']:
@@ -42,7 +43,7 @@ def download_diag(diag_dir):
 
 
 def upload_qkview(file_name):
-
+    # Upload .qkview files from local directory.
     files = {'qkview': open(file_name, 'rb')}
     values = {'visible_in_gui': 'True'}
 
